@@ -1,45 +1,39 @@
+// 1. Data Handling (Arrays) - Shuruud qasab ah
 let history = [];
 
-// 1. Navigation Logic
-function showPage(pageId) {
-    const pages = document.querySelectorAll('.page');
-    pages.forEach(page => page.classList.remove('active'));
-    document.getElementById(pageId).classList.add('active');
-}
-
-// 2. Converter Logic 
 function convert() {
+    // 2. DOM Selection
     const usd = document.getElementById('usdAmount').value;
     const feedback = document.getElementById('feedback');
     const result = document.getElementById('result');
     const list = document.getElementById('historyList');
-    const rate = 26000;
+    const rate = 26000; // Qiimaha doolarka
 
-    // Validation
+    // 3. Input Validation (6 Marks)
+    // Waxaan hubinaynaa inaan foomka madhan la gudbin ama tiro khaldan
     if (usd === "" || usd <= 0) {
-        feedback.innerHTML = "Fadlan geli tiro sax ah!";
+        feedback.innerHTML = "Fadlan geli tiroyin ka weyn eber!";
         feedback.style.color = "red";
+        result.innerHTML = "";
         return; 
     }
 
+    // 4. Logic & Calculation
     const total = usd * rate;
+
+    // 5. DOM Manipulation & Feedback (6 Marks)
     feedback.innerHTML = "Si guul leh ayaa loo beddelay!";
-    feedback.style.color = "green";
+    feedback.style.color = "black";
     result.innerHTML = `${usd} USD = ${total.toLocaleString()} SOS`;
 
+    // Kaydinta xogta (Array of Objects/Strings)
     history.push(`${usd} USD -> ${total.toLocaleString()} SOS`);
 
+    // Cusboonaysiinta liiska si toos ah (Dynamic Update)
     list.innerHTML = "";
     history.forEach(item => {
         let li = document.createElement('li');
         li.textContent = item;
         list.appendChild(li);
     });
-}
-
-// 3. Signup Validation (Events & DOM)
-function handleAuth(event) {
-    event.preventDefault();
-    const email = document.getElementById('email').value;
-    alert(`Waad ku mahadsantahay saxiixashada, ${email}!`);
 }
